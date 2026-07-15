@@ -12,8 +12,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AiCopilotResponse {
-    private String mode; // "recommend", "risk", or "text"
+public class AiGeminiResponse {
+    private String mode;
     private List<RecommendedResourceDTO> recommendedResources;
     private List<String> risk;
     private String text;

@@ -271,8 +271,8 @@ Bắt các lỗi nghiệp vụ và lỗi hệ thống để trả về JSON vớ
 - **Báo cáo Idle Employees (0%)**: `GET /reports/idle-employees`
 - **Báo cáo Project Member Count**: `GET /reports/project-members`
 
-### 7.5 AI Copilot API
-- **Endpoint duy nhất**: `POST /ai/copilot`
+### 7.5 AI Gemini API
+- **Endpoint duy nhất**: `POST /ai/gemini`
   - Request body:
     ```json
     {

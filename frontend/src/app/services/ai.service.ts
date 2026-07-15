@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface AiCopilotResponse {
+export interface AiGeminiResponse {
   mode?: string; // "recommend", "risk", or "text"
   recommendedResources?: {
     employee: string;
@@ -20,7 +20,7 @@ export class AiService {
 
   constructor(private http: HttpClient) {}
 
-  askCopilot(prompt: string): Observable<AiCopilotResponse> {
-    return this.http.post<AiCopilotResponse>(`${this.apiUrl}/copilot`, { prompt });
+  askGemini(prompt: string): Observable<AiGeminiResponse> {
+    return this.http.post<AiGeminiResponse>(`${this.apiUrl}/gemini`, { prompt });
   }
 }

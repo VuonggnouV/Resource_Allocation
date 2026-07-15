@@ -1,7 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AiService, AiCopilotResponse } from '../../services/ai.service';
+import { AiService, AiGeminiResponse } from '../../services/ai.service';
 
 interface ChatMessage {
   sender: 'user' | 'ai';
@@ -11,18 +11,18 @@ interface ChatMessage {
 }
 
 @Component({
-  selector: 'app-ai-copilot',
+  selector: 'app-ai-gemini',
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
     <!-- Floating Action Button to toggle Sidebar (only when closed) -->
-    <button class="copilot-toggle-btn" *ngIf="!isOpen" (click)="toggleSidebar()">
+    <button class="gemini-toggle-btn" *ngIf="!isOpen" (click)="toggleSidebar()">
       <span>💬 RAMS AI Assistant</span>
     </button>
 
     <!-- Sidebar Container -->
-    <div class="copilot-sidebar glass-panel" [class.sidebar-open]="isOpen">
-      <div class="copilot-header">
+    <div class="gemini-sidebar glass-panel" [class.sidebar-open]="isOpen">
+      <div class="gemini-header">
         <h3 class="glow-text-purple">🤖 RAMS AI Assistant</h3>
         <div style="display: flex; align-items: center; gap: 8px;">
           <span class="status-indicator">Online</span>
@@ -89,7 +89,7 @@ interface ChatMessage {
   `,
   styles: [`
     /* Toggle Button */
-    .copilot-toggle-btn {
+    .gemini-toggle-btn {
       position: fixed;
       bottom: 24px;
       right: 24px;
@@ -98,23 +98,27 @@ interface ChatMessage {
       border: none;
       color: #ffffff;
       padding: 12px 20px;
-      border-radius: 30px;
+      border-radius: 50px;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 14.5px;
       cursor: pointer;
       box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
-      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-smooth);
+      animation: pulsePurple 2s infinite;
     }
-    .copilot-toggle-btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+    .gemini-toggle-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5);
     }
-    
-    /* Sidebar */
-    .copilot-sidebar {
+
+    /* Sidebar Container */
+    .gemini-sidebar {
       position: fixed;
       top: 24px;
-      right: -420px;
+      right: -420px; /* Hidden initially */
       width: 380px;
       height: calc(100vh - 48px);
       z-index: 1000;
@@ -122,44 +126,43 @@ interface ChatMessage {
       flex-direction: column;
       padding: 20px;
       transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
     }
-    .copilot-sidebar.sidebar-open {
+    .sidebar-open {
       right: 24px;
     }
-    
-    .copilot-header {
+
+    /* Header */
+    .gemini-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
       margin-bottom: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      padding-bottom: 12px;
     }
     .status-indicator {
       font-size: 11px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      color: var(--success);
-      padding: 2px 6px;
-      border-radius: 10px;
       font-weight: 600;
+      color: var(--success);
+      background: rgba(16, 185, 129, 0.1);
+      padding: 2px 8px;
+      border-radius: 20px;
+      border: 1px solid rgba(16, 185, 129, 0.2);
     }
     .close-sidebar-btn {
       background: transparent;
       border: none;
       color: var(--text-secondary);
-      font-size: 16px;
       cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
-      transition: var(--transition-smooth);
+      font-size: 16px;
+      transition: color var(--transition-smooth);
     }
     .close-sidebar-btn:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.08);
+      color: var(--danger);
     }
-    
-    /* Chat history */
+
+    /* Chat History */
     .chat-history {
       flex: 1;
       overflow-y: auto;
@@ -169,6 +172,15 @@ interface ChatMessage {
       flex-direction: column;
       gap: 12px;
     }
+    .chat-history::-webkit-scrollbar {
+      width: 4px;
+    }
+    .chat-history::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 2px;
+    }
+
+    /* Welcome state */
     .welcome-message {
       text-align: center;
       padding: 30px 10px;
@@ -178,26 +190,26 @@ interface ChatMessage {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-top: 16px;
+      margin-top: 20px;
     }
     .suggestion-tag {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 14px;
       border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 13.5px;
-      color: var(--text-primary);
+      font-size: 13px;
       cursor: pointer;
-      transition: var(--transition-smooth);
+      transition: all var(--transition-smooth);
       text-align: left;
+      color: var(--text-primary);
     }
     .suggestion-tag:hover {
-      background: rgba(139, 92, 246, 0.1);
+      background: rgba(139, 92, 246, 0.08);
       border-color: rgba(139, 92, 246, 0.3);
-      transform: translateX(3px);
+      transform: translateX(4px);
     }
-    
-    /* Message wrapper */
+
+    /* Chat bubbles */
     .message-wrapper {
       display: flex;
       width: 100%;
@@ -210,28 +222,29 @@ interface ChatMessage {
     }
     .message-bubble {
       max-width: 85%;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 14.5px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
     .bubble-user {
-      background: linear-gradient(135deg, var(--accent-blue) 0%, rgba(59, 130, 246, 0.7) 100%);
+      background: linear-gradient(135deg, var(--accent-blue) 0%, #2563eb 100%);
       color: #ffffff;
       border-bottom-right-radius: 2px;
     }
     .bubble-ai {
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       color: var(--text-primary);
       border-bottom-left-radius: 2px;
     }
-    
-    /* Loading dots */
+
+    /* Loading state */
     .loading-bubble {
       display: flex;
       gap: 4px;
       align-items: center;
-      padding: 12px 18px;
+      padding: 12px 20px;
     }
     .loading-dot {
       width: 6px;
@@ -242,11 +255,17 @@ interface ChatMessage {
     }
     .loading-dot:nth-child(1) { animation-delay: -0.32s; }
     .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
     @keyframes bounce {
       0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
+      40% { transform: scale(1.0); }
     }
-    
+    @keyframes pulsePurple {
+      0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+    }
+
     /* Input area */
     .chat-input-area {
       display: flex;
@@ -257,7 +276,7 @@ interface ChatMessage {
     }
   `]
 })
-export class AiCopilotComponent {
+export class AiGeminiComponent {
   isOpen = false;
   userInput = '';
   isLoading = false;
@@ -301,13 +320,13 @@ export class AiCopilotComponent {
     // Scroll to bottom (timeout to allow DOM rendering)
     setTimeout(() => this.scrollToBottom(), 50);
 
-    this.aiService.askCopilot(userPrompt).subscribe({
-      next: (res: AiCopilotResponse) => {
+    this.aiService.askGemini(userPrompt).subscribe({
+      next: (res: AiGeminiResponse) => {
         this.isLoading = false;
-        
+
         const text = res.text || '';
         const mode = res.mode || 'text';
-        
+
         if (mode === 'recommend') {
           const recs = res.recommendedResources || [];
           if (recs.length === 1 && recs[0].employee.includes("cấu hình")) {
@@ -347,7 +366,7 @@ export class AiCopilotComponent {
             type: 'text'
           });
         }
-        
+
         this.cdr.detectChanges();
         setTimeout(() => this.scrollToBottom(), 50);
       },

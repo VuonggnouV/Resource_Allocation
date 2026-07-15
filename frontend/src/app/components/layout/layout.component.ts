@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AiCopilotComponent } from '../ai-copilot/ai-copilot.component';
+import { AiGeminiComponent } from '../ai-gemini/ai-gemini.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, AiCopilotComponent],
+  imports: [CommonModule, RouterModule, AiGeminiComponent],
   template: `
     <div class="app-layout">
       <!-- Left Sidebar Navigation -->
@@ -56,8 +56,8 @@ import { AiCopilotComponent } from '../ai-copilot/ai-copilot.component';
         </div>
       </main>
 
-      <!-- AI Copilot Panel Component -->
-      <app-ai-copilot></app-ai-copilot>
+      <!-- AI Gemini Panel Component -->
+      <app-ai-gemini></app-ai-gemini>
     </div>
   `,
   styles: [`

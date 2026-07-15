@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AiCopilotRequest {
+public class AiGeminiRequest {
     @NotBlank(message = "Prompt cannot be blank")
     private String prompt;
 }

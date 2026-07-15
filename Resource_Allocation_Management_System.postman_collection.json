@@ -314,7 +314,7 @@
 			"name": "AI Assistant APIs",
 			"item": [
 				{
-					"name": "AI Resource Recommendation",
+					"name": "AI Gemini Copilot",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -328,40 +328,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/ai/recommend",
+							"raw": "{{baseUrl}}/ai/gemini",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"ai",
-								"recommend"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "AI Risk Detection",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"prompt\": \"Sprint tới cần thêm 2 Java Developer.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/ai/risk-detect",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"ai",
-								"risk-detect"
+								"gemini"
 							]
 						}
 					},

@@ -9,7 +9,7 @@ import com.resourceallocation.repository.ProjectRepository;
 import com.resourceallocation.repository.AllocationRepository;
 import com.resourceallocation.entity.Project;
 import com.resourceallocation.entity.Allocation;
-import com.resourceallocation.response.AiCopilotResponse;
+import com.resourceallocation.response.AiGeminiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -49,12 +49,12 @@ public class AiService {
         this.objectMapper = new ObjectMapper();
     }
 
-    public AiCopilotResponse askCopilot(String prompt) {
-        log.info("Processing Unified AI Copilot prompt: \"{}\"", prompt);
+    public AiGeminiResponse askGemini(String prompt) {
+        log.info("Processing Unified AI Gemini prompt: \"{}\"", prompt);
 
         if (isApiKeyMissing()) {
             log.warn("Gemini API Key is not configured. Returning instruction message.");
-            return new AiCopilotResponse(
+            return new AiGeminiResponse(
                 "text", 
                 null, 
                 null, 
@@ -139,11 +139,11 @@ public class AiService {
                 }
             }
 
-            return new AiCopilotResponse(mode, recommendedResources, risk, responseText);
+            return new AiGeminiResponse(mode, recommendedResources, risk, responseText);
 
         } catch (Exception e) {
-            log.error("Error invoking Gemini AI API for Copilot", e);
-            return new AiCopilotResponse(
+            log.error("Error invoking Gemini AI API", e);
+            return new AiGeminiResponse(
                 "text", 
                 null, 
                 null, 

@@ -1,7 +1,7 @@
 package com.resourceallocation.controller;
 
-import com.resourceallocation.request.AiCopilotRequest;
-import com.resourceallocation.response.AiCopilotResponse;
+import com.resourceallocation.request.AiGeminiRequest;
+import com.resourceallocation.response.AiGeminiResponse;
 import com.resourceallocation.service.AiService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ public class AiController {
         this.aiService = aiService;
     }
 
-    @PostMapping("/copilot")
-    public ResponseEntity<AiCopilotResponse> copilot(@Valid @RequestBody AiCopilotRequest request) {
-        return ResponseEntity.ok(aiService.askCopilot(request.getPrompt()));
+    @PostMapping("/gemini")
+    public ResponseEntity<AiGeminiResponse> gemini(@Valid @RequestBody AiGeminiRequest request) {
+        return ResponseEntity.ok(aiService.askGemini(request.getPrompt()));
     }
 }
