@@ -1,0 +1,36 @@
+# Build and Target directories
+**/target/
+**/dist/
+**/node_modules/
+
+# IDE files and workspace settings
+.idea/
+*.iml
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment and sensitive config
+.env
+.env.local
+**/application-local.properties
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+.gemini/
+.agents/
+.cortex/
+.brain/
+.system_generated/
+walkthrough.md
+task.md
+implementation_plan.md
