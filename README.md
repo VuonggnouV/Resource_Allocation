@@ -46,7 +46,7 @@ Dự án được xây dựng chuẩn hóa:
    spring.datasource.password=postgres
    gemini.api.key=YOUR_GEMINI_API_KEY
    ```
-3. **Import dữ liệu thô**: Chạy lần lượt file [schema.sql](file:///c:/Users/vuong/IdeaProjects/Resource-Allocation-Management-System/schema.sql) và [data.sql](file:///c:/Users/vuong/IdeaProjects/Resource-Allocation-Management-System/data.sql) ở root để tạo bảng và dữ liệu mẫu.
+3. **Import dữ liệu thô**: Chạy file [init_db.sql](file:///c:/Users/vuong/IdeaProjects/Resource-Allocation-Management-System/init_db.sql) ở root để tạo bảng, index, triggers và chèn dữ liệu mẫu.
 4. **Khởi động Backend**: Chạy lệnh Maven tại thư mục `backend`:
    ```bash
    mvn clean spring-boot:run
