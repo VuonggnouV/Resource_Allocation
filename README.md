@@ -30,7 +30,7 @@ Dự án được xây dựng chuẩn hóa:
    ```bash
    docker-compose up --build -d
    ```
-4. Truy cập trình duyệt và mở địa chỉ: 👉 **`http://localhost`** để trải nghiệm ứng dụng!
+4. Truy cập trình duyệt và mở địa chỉ: http://localhost để trải nghiệm ứng dụng.
 *(Dữ liệu mẫu gồm 50 nhân viên, 25 dự án, và 53 phân bổ mẫu đã được tự động chèn sẵn vào database PostgreSQL).*
 
 ---
@@ -51,7 +51,7 @@ Dự án được xây dựng chuẩn hóa:
    ```bash
    mvn clean spring-boot:run
    ```
-   Backend sẽ hoạt động tại cổng `8080` (`http://localhost:8080`).
+   Backend sẽ hoạt động tại cổng 8080 (http://localhost:8080).
 
 ### 2.2 Khởi động Frontend (Angular)
 1. Mở terminal tại thư mục `frontend`.
@@ -63,21 +63,53 @@ Dự án được xây dựng chuẩn hóa:
    ```bash
    npm start
    ```
-   Frontend sẽ hoạt động tại địa chỉ: 👉 **`http://localhost:4200`**.
+   Frontend sẽ hoạt động tại địa chỉ: http://localhost:4200.
 
 ---
 
-## 3. Tài liệu API & Kiểm thử
+## 3. Hướng dẫn Lấy và Cấu hình Google Gemini API Key
 
-### 3.1 Swagger UI
+Hệ thống sử dụng model Gemini để phân tích rủi ro và đề xuất nhân sự thông minh. Để kích hoạt tính năng này:
+
+### 3.1 Cách lấy API Key (Miễn phí)
+1. Truy cập vào [Google AI Studio](https://aistudio.google.com/).
+2. Đăng nhập bằng tài khoản Google của bạn.
+3. Nhấn nút **Create API Key** và sao chép chuỗi Key được sinh ra (chuỗi bắt đầu bằng `AIzaSy...`).
+
+### 3.2 Cách cấu hình vào ứng dụng
+
+* **Nếu chạy bằng Docker Compose (Cách 1)**:
+  Thiết lập API Key thành biến môi trường trước khi khởi chạy container (Docker sẽ tự động map biến này vào ứng dụng):
+  * **Windows (PowerShell)**:
+    ```powershell
+    $env:GEMINI_API_KEY="AIzaSyYourKeyHere..."
+    docker-compose up -d
+    ```
+  * **Linux/macOS**:
+    ```bash
+    export GEMINI_API_KEY="AIzaSyYourKeyHere..."
+    docker-compose up -d
+    ```
+
+* **Nếu chạy local thủ công (Cách 2)**:
+  Mở file [backend/src/main/resources/application.properties](file:///c:/Users/vuong/IdeaProjects/Resource-Allocation-Management-System/backend/src/main/resources/application.properties) và điền key của bạn vào dòng sau:
+  ```properties
+  gemini.api.key=AIzaSyYourKeyHere...
+  ```
+
+---
+
+## 4. Tài liệu API & Kiểm thử
+
+### 4.1 Swagger UI
 Sau khi chạy Backend, bạn có thể truy cập tài liệu Swagger UI để test trực tiếp các API tại:
-👉 `http://localhost:8080/swagger-ui/index.html`
+http://localhost:8080/swagger-ui/index.html
 
-### 3.2 Postman Collection
+### 4.2 Postman Collection
 File Postman Collection hoàn chỉnh nằm tại thư mục root của dự án:
-👉 **`[Resource_Allocation_Management_System.postman_collection.json](file:///c:/Users/vuong/IdeaProjects/Resource-Allocation-Management-System/Resource_Allocation_Management_System.postman_collection.json)`**
+[Resource_Allocation_Management_System.postman_collection.json](file:///c:/Users/vuong/IdeaProjects/Resource-Allocation-Management-System/Resource_Allocation_Management_System.postman_collection.json)
 
-### 3.3 Chạy Unit Test
+### 4.3 Chạy Unit Test
 Để chạy kiểm thử tự động các business rules của Allocation Service ở Backend:
 ```bash
 mvn test
@@ -85,7 +117,7 @@ mvn test
 
 ---
 
-## 4. Các Tính Năng Nổi Bật
+## 5. Các Tính Năng Nổi Bật
 
 1. **Quản lý CRUD toàn diện**: Hỗ trợ đầy đủ Thêm, Sửa, Xóa, Tìm kiếm cho Nhân sự, Dự án, và Phân bổ.
 2. **Server-side Dynamic Sorting & Pagination**: Hỗ trợ phân trang và sắp xếp động trên toàn bộ DB. Sắp xếp thông minh theo **Workload** (Tổng phân bổ của nhân sự) trực tiếp ở Backend DB.

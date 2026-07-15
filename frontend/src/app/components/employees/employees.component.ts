@@ -14,14 +14,14 @@ interface EmployeeWithWorkload extends Employee {
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="employees-container">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <div class="employees-container" style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 class="glow-text-blue" style="font-weight: 600;">Quản Lý Nhân Sự</h1>
         <button class="glass-btn" (click)="openAddModal()">➕ Thêm Nhân Viên</button>
       </div>
 
       <!-- Advanced Search Panel -->
-      <div class="glass-panel filter-bar" style="margin-bottom: 24px; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+      <div class="glass-panel filter-bar" style="margin-bottom: 8px; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
         <div style="flex: 1; min-width: 120px;">
           <label class="form-label">Mã NV</label>
           <input type="text" class="glass-input" placeholder="Mã NV..." [(ngModel)]="filters.employeeCode" (keyup.enter)="search()" />
@@ -54,8 +54,7 @@ interface EmployeeWithWorkload extends Employee {
         </div>
       </div>
 
-      <!-- Employees Grid/Table -->
-      <div class="glass-panel" style="overflow-x: auto; padding: 0;">
+      <div class="glass-panel" style="flex: 1; overflow-y: auto; overflow-x: auto; padding: 0; min-height: 0;">
         <table class="glass-table">
           <thead>
             <tr>
@@ -125,8 +124,7 @@ interface EmployeeWithWorkload extends Employee {
         </table>
       </div>
 
-      <!-- Pagination Controls -->
-      <div class="pagination-container" *ngIf="totalElements > 0" style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center;">
+      <div class="pagination-container" *ngIf="totalElements > 0" style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
         <span style="font-size: 14px; color: var(--text-secondary);">
           {{ getRangeText() }}
         </span>

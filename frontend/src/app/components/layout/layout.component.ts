@@ -63,22 +63,23 @@ import { AiGeminiComponent } from '../ai-gemini/ai-gemini.component';
   styles: [`
     .app-layout {
       display: flex;
-      min-height: 100vh;
+      height: 100vh;
       width: 100vw;
+      overflow: hidden;
     }
     
     /* Sidebar styling */
     .app-sidebar {
       width: 260px;
-      height: calc(100vh - 32px);
+      height: calc(100vh - 24px);
       position: fixed;
-      top: 16px;
-      left: 16px;
+      top: 12px;
+      left: 12px;
       z-index: 100;
       display: flex;
       flex-direction: column;
-      padding: 24px;
-      border-radius: 20px;
+      padding: 20px;
+      border-radius: 16px;
     }
     .brand {
       display: flex;
@@ -144,19 +145,22 @@ import { AiGeminiComponent } from '../ai-gemini/ai-gemini.component';
     /* Content Area */
     .app-content-wrapper {
       flex: 1;
-      margin-left: 292px; /* 260px sidebar + 16px left gap + 16px content gap */
-      padding: 16px 16px 16px 0;
+      margin-left: 284px; /* 260px sidebar + 12px left gap + 12px content gap */
+      padding: 12px 12px 12px 0;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 10px;
+      height: 100vh;
+      overflow: hidden;
     }
     .app-header {
-      height: 64px;
-      border-radius: 16px;
-      padding: 0 24px;
+      height: 48px;
+      border-radius: 12px;
+      padding: 0 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-shrink: 0;
     }
     .header-profile {
       display: flex;
@@ -179,6 +183,10 @@ import { AiGeminiComponent } from '../ai-gemini/ai-gemini.component';
     .app-page-content {
       flex: 1;
       padding: 8px 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
   `]
 })

@@ -8,14 +8,14 @@ import { ProjectService, Project } from '../../services/project.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="projects-container">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <div class="projects-container" style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 class="glow-text-blue" style="font-weight: 600;">Quản Lý Dự Án</h1>
         <button class="glass-btn" (click)="openAddModal()">➕ Thêm Dự Án</button>
       </div>
 
       <!-- Advanced Search Panel -->
-      <div class="glass-panel filter-bar" style="margin-bottom: 24px; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+      <div class="glass-panel filter-bar" style="margin-bottom: 8px; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
         <div style="flex: 1; min-width: 120px;">
           <label class="form-label">Mã Dự Án</label>
           <input type="text" class="glass-input" placeholder="Mã dự án..." [(ngModel)]="filters.projectCode" (keyup.enter)="search()" />
@@ -173,6 +173,10 @@ import { ProjectService, Project } from '../../services/project.service';
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 20px;
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px;
+      min-height: 0;
     }
     @media (max-width: 1600px) {
       .projects-grid {

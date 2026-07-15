@@ -24,6 +24,16 @@ public class EmployeeService {
     }
 
     public Employee create(EmployeeRequest request) {
+        employeeRepository.findByEmployeeCode(request.getEmployeeCode())
+                .ifPresent(existing -> {
+                    throw new RuntimeException("Mã nhân sự '" + request.getEmployeeCode() + "' đã được sử dụng.");
+                });
+
+        employeeRepository.findByEmail(request.getEmail())
+                .ifPresent(existing -> {
+                    throw new RuntimeException("Email '" + request.getEmail() + "' đã được đăng ký.");
+                });
+
         Employee employee = new Employee();
         employee.setEmployeeCode(request.getEmployeeCode());
         employee.setFullName(request.getFullName());

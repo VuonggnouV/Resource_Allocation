@@ -9,7 +9,7 @@ import { forkJoin } from 'rxjs';
   imports: [CommonModule],
   template: `
     <div class="dashboard-container">
-      <h1 class="glow-text-blue" style="margin-bottom: 24px; font-weight: 600;">Hệ Thống Phân Bổ Nguồn Lực - Dashboard</h1>
+      <h1 class="glow-text-blue" style="margin-bottom: 12px; font-weight: 600;">Hệ Thống Phân Bổ Nguồn Lực - Dashboard</h1>
 
       <!-- Top KPI Cards Row -->
       <div class="kpi-grid">
@@ -47,7 +47,7 @@ import { forkJoin } from 'rxjs';
       </div>
 
       <!-- Main Visualizations Grid -->
-      <div class="panels-grid" style="margin-bottom: 24px;">
+      <div class="panels-grid" style="margin-bottom: 12px;">
         <!-- Left Column: Custom Bar Chart (Scrollable Horizontal) -->
         <div class="glass-panel chart-panel">
           <h3 style="margin-bottom: 16px; font-weight: 600;">Hiệu Suất Phân Bổ Nhân Sự (Sắp xếp giảm dần, lướt ngang)</h3>
@@ -77,8 +77,7 @@ import { forkJoin } from 'rxjs';
           </div>
         </div>
 
-        <!-- Right Column: Overloaded List -->
-        <div class="glass-panel" style="display: flex; flex-direction: column; min-height: 350px;">
+        <div class="glass-panel" style="display: flex; flex-direction: column; min-height: 250px;">
           <h3 class="text-danger" style="margin-bottom: 16px; font-weight: 600;">Nhân Sự Cần Điều Chỉnh (Overloaded > 90%)</h3>
           
           <div class="overload-list" style="flex: 1; overflow-y: auto;">
@@ -100,10 +99,10 @@ import { forkJoin } from 'rxjs';
       <!-- Lower Visualization Row (Idle Employees & Project Members count) -->
       <div class="panels-grid lower-grid">
         <!-- Left: Idle Employees List (0% allocation) -->
-        <div class="glass-panel" style="display: flex; flex-direction: column; min-height: 320px;">
+        <div class="glass-panel" style="display: flex; flex-direction: column; min-height: 200px; flex: 1;">
           <h3 class="text-success" style="margin-bottom: 16px; font-weight: 600;">Nhân Sự Đang Rảnh (0% Phân Bổ)</h3>
           
-          <div class="idle-list" style="flex: 1; overflow-y: auto; max-height: 300px;">
+          <div class="idle-list" style="flex: 1; overflow-y: auto; max-height: 160px;">
             <table class="glass-table-simple" style="width: 100%; border-collapse: collapse;">
               <thead>
                 <tr style="text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 13px; color: var(--text-secondary);">
@@ -131,10 +130,10 @@ import { forkJoin } from 'rxjs';
         </div>
 
         <!-- Right: Project Member Count counts -->
-        <div class="glass-panel" style="display: flex; flex-direction: column; min-height: 320px;">
+        <div class="glass-panel" style="display: flex; flex-direction: column; min-height: 200px; flex: 1;">
           <h3 class="glow-text-purple" style="margin-bottom: 16px; font-weight: 600;">Số Lượng Thành Viên Từng Dự Án</h3>
           
-          <div class="project-members-list" style="flex: 1; overflow-y: auto; max-height: 300px;">
+          <div class="project-members-list" style="flex: 1; overflow-y: auto; max-height: 160px;">
             <div class="project-member-item glass-input" *ngFor="let pm of projectMembers" style="margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-color: rgba(139, 92, 246, 0.15);">
               <div>
                 <div style="font-weight: 600; color: #ffffff;">{{ pm.projectName }}</div>
@@ -153,41 +152,45 @@ import { forkJoin } from 'rxjs';
   `,
   styles: [`
     .dashboard-container {
-      padding-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: auto;
+      padding-bottom: 24px;
     }
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 24px;
+      gap: 16px;
+      margin-bottom: 12px;
     }
     .kpi-card {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 20px;
+      gap: 12px;
+      padding: 10px 16px;
     }
     .kpi-icon {
-      font-size: 32px;
-      width: 54px;
-      height: 54px;
+      font-size: 20px;
+      width: 38px;
+      height: 38px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .kpi-label {
-      font-size: 13px;
+      font-size: 11.5px;
       color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
     .kpi-value {
-      font-size: 26px;
+      font-size: 18px;
       font-weight: 700;
-      margin-top: 4px;
+      margin-top: 2px;
       color: #ffffff;
     }
     .card-alert {
@@ -201,7 +204,7 @@ import { forkJoin } from 'rxjs';
     .panels-grid {
       display: grid;
       grid-template-columns: 2fr 1.2fr;
-      gap: 24px;
+      gap: 16px;
     }
 
     @media (max-width: 1100px) {
@@ -211,7 +214,7 @@ import { forkJoin } from 'rxjs';
     }
     
     .chart-panel {
-      min-height: 350px;
+      min-height: 250px;
       display: flex;
       flex-direction: column;
       min-width: 0;
@@ -244,10 +247,10 @@ import { forkJoin } from 'rxjs';
     .bar-chart {
       display: flex;
       align-items: flex-end;
-      gap: 20px;
+      gap: 16px;
       min-width: max-content;
-      height: 290px;
-      padding: 20px 10px 80px 10px; /* Thừa khoảng trống 80px phía dưới cho nhãn tên xoay */
+      height: 210px;
+      padding: 15px 10px 60px 10px; /* Thừa khoảng trống 60px phía dưới cho nhãn tên xoay */
     }
     .chart-bar-wrapper {
       display: flex;
@@ -258,10 +261,10 @@ import { forkJoin } from 'rxjs';
       position: relative;
     }
     .chart-bar-container {
-      width: 24px;
-      height: 150px;
+      width: 20px;
+      height: 100px;
       background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       display: flex;
       align-items: flex-end;
@@ -270,7 +273,7 @@ import { forkJoin } from 'rxjs';
     }
     .chart-bar-fill {
       width: 100%;
-      border-radius: 12px;
+      border-radius: 10px;
       transition: height 1s ease-out;
     }
     .bar-safe {
@@ -294,9 +297,9 @@ import { forkJoin } from 'rxjs';
     
     /* Xoay nghiêng tên 45 độ chuyên nghiệp */
     .bar-name-label {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-secondary);
-      margin-top: 14px;
+      margin-top: 10px;
       text-align: left;
       white-space: nowrap;
       transform: rotate(-45deg);
@@ -304,8 +307,8 @@ import { forkJoin } from 'rxjs';
       display: inline-block;
       width: 80px;
       position: absolute;
-      left: 18px;
-      top: 182px;
+      left: 16px;
+      top: 124px;
       transition: var(--transition-smooth);
     }
     .chart-bar-wrapper:hover .bar-name-label {

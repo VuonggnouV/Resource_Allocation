@@ -17,7 +17,8 @@ interface ChatMessage {
   template: `
     <!-- Floating Action Button to toggle Sidebar (only when closed) -->
     <button class="gemini-toggle-btn" *ngIf="!isOpen" (click)="toggleSidebar()">
-      <span>💬 RAMS AI Assistant</span>
+      <span class="btn-text-short">AI</span>
+      <span class="btn-text-long">💬 RAMS AI Assistant</span>
     </button>
 
     <!-- Sidebar Container -->
@@ -97,21 +98,47 @@ interface ChatMessage {
       background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%);
       border: none;
       color: #ffffff;
-      padding: 12px 20px;
-      border-radius: 50px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
       font-weight: 600;
-      font-size: 14.5px;
+      font-size: 14px;
       cursor: pointer;
       box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: all var(--transition-smooth);
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      white-space: nowrap;
       animation: pulsePurple 2s infinite;
     }
+    .gemini-toggle-btn .btn-text-long {
+      opacity: 0;
+      max-width: 0;
+      display: inline-block;
+      transition: all 0.3s ease;
+      margin-left: 0;
+    }
+    .gemini-toggle-btn .btn-text-short {
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
     .gemini-toggle-btn:hover {
-      transform: translateY(-2px) scale(1.05);
+      width: 190px;
+      border-radius: 30px;
+      padding: 0 16px;
+      justify-content: flex-start;
       box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5);
+      transform: translateY(-2px);
+    }
+    .gemini-toggle-btn:hover .btn-text-short {
+      display: none;
+    }
+    .gemini-toggle-btn:hover .btn-text-long {
+      opacity: 1;
+      max-width: 160px;
+      margin-left: 4px;
     }
 
     /* Sidebar Container */

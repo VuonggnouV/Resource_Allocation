@@ -26,14 +26,19 @@
   padding: 0;
 }
 
+html, body {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-color);
   background-image: var(--bg-gradient);
   background-attachment: fixed;
   color: var(--text-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -190,17 +195,17 @@ body {
 }
 
 .glass-table th {
-  padding: 16px;
+  padding: 10px 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-secondary);
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13.5px;
 }
 
 .glass-table td {
-  padding: 16px;
+  padding: 8px 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  font-size: 15px;
+  font-size: 14px;
   vertical-align: middle;
 }
 

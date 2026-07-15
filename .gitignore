@@ -34,3 +34,6 @@ temp/
 walkthrough.md
 task.md
 implementation_plan.md
+
+# Tools and modernization logs
+.github/modernize/

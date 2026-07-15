@@ -11,14 +11,14 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="allocations-container">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <div class="allocations-container" style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 class="glow-text-blue" style="font-weight: 600;">Quản Lý Phân Bổ Nhân Lực</h1>
         <button class="glass-btn" (click)="openAddModal()">➕ Tạo Phân Bổ Mới</button>
       </div>
 
       <!-- Advanced Search Panel -->
-      <div class="glass-panel filter-bar" style="margin-bottom: 24px; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+      <div class="glass-panel filter-bar" style="margin-bottom: 8px; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
         <div style="flex: 1.5; min-width: 180px;">
           <label class="form-label">Tên Nhân Sự</label>
           <input type="text" class="glass-input" placeholder="Tìm theo tên nhân sự..." [(ngModel)]="filters.employeeName" (keyup.enter)="search()" />
@@ -45,8 +45,7 @@ import { forkJoin } from 'rxjs';
         </div>
       </div>
 
-      <!-- Allocations List -->
-      <div class="glass-panel" style="overflow-x: auto; padding: 0;">
+      <div class="glass-panel" style="flex: 1; overflow-y: auto; overflow-x: auto; padding: 0; min-height: 0;">
         <table class="glass-table">
           <thead>
             <tr>
@@ -112,7 +111,7 @@ import { forkJoin } from 'rxjs';
       </div>
 
       <!-- Pagination Controls -->
-      <div class="pagination-container" *ngIf="totalElements > 0" style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center;">
+      <div class="pagination-container" *ngIf="totalElements > 0" style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
         <span style="font-size: 14px; color: var(--text-secondary);">
           {{ getRangeText() }}
         </span>
